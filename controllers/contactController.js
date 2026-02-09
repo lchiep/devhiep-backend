@@ -39,7 +39,7 @@ exports.deleteContact = (req, res) => {
   res.json({ msg: "Deleted successfully" })
 }
 
-import nodemailer from "nodemailer"
+const nodemailer = require("nodemailer")
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -48,3 +48,4 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 })
+
