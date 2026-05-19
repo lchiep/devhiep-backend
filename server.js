@@ -9,14 +9,22 @@ const projectRoutes = require("./routes/projectRoutes");
 
 const app = express();
 
-// ✅ FIX: thêm DELETE vào methods
-app.use(cors({
+// ✅ FIX CORS: thêm OPTIONS + headers đầy đủ
+const corsOptions = {
   origin: [
     "http://localhost:5173",
     "https://devhiep-portfolio.vercel.app"
   ],
-  methods: ["GET", "POST", "DELETE"],
-}));
+  methods: ["GET", "POST", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+
+// ✅ Xử lý preflight OPTIONS request cho tất cả routes
+app.options("*", cors(corsOptions));
 
 app.use(express.json());
 
