@@ -9,13 +9,15 @@ const projectRoutes = require("./routes/projectRoutes");
 
 const app = express();
 
+// ✅ FIX: thêm DELETE vào methods
 app.use(cors({
   origin: [
     "http://localhost:5173",
     "https://devhiep-portfolio.vercel.app"
   ],
-  methods: ["GET", "POST"],
+  methods: ["GET", "POST", "DELETE"],
 }));
+
 app.use(express.json());
 
 // ROUTES
@@ -23,7 +25,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/projects", projectRoutes);
 
-// STATIC IMAGES (CHUẨN DEPLOY)
+// STATIC IMAGES
 app.use(
   "/uploads",
   express.static(path.join(__dirname, "uploads"))
