@@ -9,7 +9,6 @@ const projectRoutes = require("./routes/projectRoutes");
 
 const app = express();
 
-// ✅ FIX CORS: thêm OPTIONS + headers đầy đủ
 const corsOptions = {
   origin: [
     "http://localhost:5173",
@@ -22,25 +21,15 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-// ✅ Xử lý preflight OPTIONS request cho tất cả routes
 app.options("*", cors(corsOptions));
 
 app.use(express.json());
 
-// ROUTES
 app.use("/api/auth", authRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/projects", projectRoutes);
 
-// STATIC IMAGES
-app.use(
-  "/uploads",
-  express.static(path.join(__dirname, "uploads"))
-);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log("Server running on port", PORT);
-});
+app.listen(PORT, () => console.log("Server running on port", PORT));
